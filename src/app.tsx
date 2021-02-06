@@ -1,11 +1,13 @@
-import React, {FC} from 'react';
-import {Text} from 'ink';
+import React, { FC } from "react";
+import { Table } from "./table";
 
-const App: FC<{name?: string}> = ({name = 'Stranger'}) => (
-	<Text>
-		Hello, <Text color="green">{name}</Text>
-	</Text>
+export const App: FC = () => (
+  <Table
+    data={[
+      {
+        teste: "OI",
+        b: "Teste",
+      },
+    ]}
+  />
 );
-
-module.exports = App;
-export default App;

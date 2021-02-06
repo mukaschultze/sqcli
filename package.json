@@ -17,6 +17,7 @@
 	],
 	"dependencies": {
 		"ink": "^3.0.8",
+		"ink-table": "^3.0.0",
 		"meow": "^9.0.0",
 		"react": "^17.0.1"
 	},

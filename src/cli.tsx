@@ -2,7 +2,7 @@
 import { render } from "ink";
 import meow from "meow";
 import React from "react";
-import App from "./app";
+import { App } from "./app";
 
 const cli = meow(
 	`
@@ -25,4 +25,4 @@ const cli = meow(
 	}
 );
 
-render(<App name={cli.flags.name} />);
+render(<App />);
