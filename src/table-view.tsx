@@ -35,7 +35,7 @@ const [useData] = bind(
       let qb = knex
         .queryBuilder()
         .select("*")
-        .from("dados_coletados")
+        .from("invoices")
         .offset(offset)
         .limit(limit);
 
