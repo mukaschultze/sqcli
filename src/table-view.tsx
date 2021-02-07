@@ -2,7 +2,7 @@ import { bind } from "@react-rxjs/core";
 import { Box, Text, useFocus, useFocusManager, useInput } from "ink";
 import React, { FC } from "react";
 import { BehaviorSubject, combineLatest, from, Subject, timer } from "rxjs";
-import { debounceTime, switchMap } from "rxjs/operators";
+import { debounceTime, delay, switchMap, tap } from "rxjs/operators";
 import { Database } from "./db/connection";
 
 const orderBySubject = new BehaviorSubject<
@@ -28,9 +28,15 @@ const limitSubject = new Subject<number>();
 const setLimit = (limit: number) => limitSubject.next(Math.max(limit, 1));
 const [useLimit, limit$] = bind(limitSubject, 25);
 
+const loadingSubject = new Subject<boolean>();
+const setLoading = (loading: boolean) => loadingSubject.next(loading);
+export const [useLoading, loading$] = bind(loadingSubject, false);
+
 const [useData] = bind(
-  combineLatest([Database, limit$, offset$, orderBy$, timer(0, 2000)]).pipe(
+  combineLatest([Database, limit$, offset$, orderBy$, timer(0, 10000)]).pipe(
+    tap(() => setLoading(true)),
     debounceTime(300),
+    delay(250),
     switchMap(([knex, limit, offset, orderBy]) => {
       let qb = knex
         .queryBuilder()
@@ -48,7 +54,8 @@ const [useData] = bind(
       if (orderBy) qb = qb.orderBy(orderBy.column, orderBy.order);
 
       return from(qb.then());
-    })
+    }),
+    tap(() => setLoading(false))
   ),
   []
 );
