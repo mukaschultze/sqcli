@@ -1,13 +1,15 @@
+import { Box, Text } from "ink";
 import React, { FC } from "react";
-import { Table } from "./table";
+import { TableView } from "./table-view";
 
 export const App: FC = () => (
-  <Table
-    data={[
-      {
-        teste: "OI",
-        b: "Teste",
-      },
-    ]}
-  />
+  <Box flexDirection="column">
+    <TableView blackListColumns={[]} />
+    <Box marginX={4}>
+      <Text color="grey">
+        ←→ Select Column | ↓↑ Move offset | &lt;&gt; Increase limit | [enter]
+        Order by selected column
+      </Text>
+    </Box>
+  </Box>
 );

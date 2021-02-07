@@ -5,7 +5,7 @@ import React from "react";
 import { App } from "./app";
 
 const cli = meow(
-	`
+  `
 	Usage
 	  $ sqcli
 
@@ -16,13 +16,13 @@ const cli = meow(
 	  $ sqcli --name=Jane
 	  Hello, Jane
 `,
-	{
-		flags: {
-			name: {
-				type: "string",
-			},
-		},
-	}
+  {
+    flags: {
+      name: {
+        type: "string",
+      },
+    },
+  }
 );
 
 render(<App />);
