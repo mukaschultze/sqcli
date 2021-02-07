@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import chalk from "chalk";
 import { render } from "ink";
 import meow from "meow";
 import React from "react";
@@ -11,16 +12,21 @@ const cli = meow(
 	  $ sqcli
 
 	Options
-    --init  Generates config file
+    --init    ${chalk.green("Generates SQCLI configuration file")}
+    --model   ${chalk.green("Loads configuration of <name>.sqcli.js file")}
 
 	Examples
     $ sqcli --init
+
+    $ sqcli --model user
 `,
   {
     flags: {
       init: {
+        type: "boolean",
+      },
+      model: {
         type: "string",
-        default: "true",
       },
     },
   }

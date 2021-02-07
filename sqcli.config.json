@@ -1,6 +1,8 @@
 {
-  "client": "sqlite3",
-  "host": "127.0.0.1",
-  "user": "root",
-  "port": "443"
+  "database": {
+    "driver": "sqlite3",
+    "host": "127.0.0.1",
+    "user": "root",
+    "port": "443"
+  }
 }
