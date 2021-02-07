@@ -2,7 +2,9 @@
   "name": "sqcli",
   "version": "0.0.0",
   "license": "MIT",
-  "bin": "dist/cli.js",
+  "bin": {
+    "sqcli": "dist/cli.js"
+  },
   "engines": {
     "node": ">=10"
   },

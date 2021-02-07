@@ -3,6 +3,7 @@ import { render } from "ink";
 import meow from "meow";
 import React from "react";
 import { App } from "./app";
+import parameterHandler from "./helpers/parameterHandler";
 
 const cli = meow(
   `
@@ -10,19 +11,21 @@ const cli = meow(
 	  $ sqcli
 
 	Options
-		--name  Your name
+    --init  Generates config file
 
 	Examples
-	  $ sqcli --name=Jane
-	  Hello, Jane
+    $ sqcli --init
 `,
   {
     flags: {
-      name: {
+      init: {
         type: "string",
+        default: "true",
       },
     },
   }
 );
+
+parameterHandler(cli);
 
 render(<App />);
