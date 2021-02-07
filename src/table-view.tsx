@@ -38,6 +38,8 @@ const [useData] = bind(
     debounceTime(300),
     delay(250),
     switchMap(([knex, limit, offset, orderBy]) => {
+      // let qb = knex.queryBuilder().table("invoices").columnInfo();
+
       let qb = knex
         .queryBuilder()
         .select("*")
@@ -53,7 +55,15 @@ const [useData] = bind(
 
       if (orderBy) qb = qb.orderBy(orderBy.column, orderBy.order);
 
-      return from(qb.then());
+      const start = new Date();
+      return from(qb.then()).pipe(
+        tap(() => console.log(+new Date() - +start, "ms"))
+      );
+      // return from(qb.then()).pipe(
+      //   map((a) =>
+      //     Object.entries(a).map(([key, values]) => ({ name: key, ...values }))
+      //   )
+      // );
     }),
     tap(() => setLoading(false))
   ),
@@ -111,11 +121,14 @@ export const Column: FC<{
   const { isFocused } = useFocus();
   const orderBy = useOrderBy();
 
-  useInput((input, key) => {
-    if (isFocused && key.return) {
-      setOrderBy(columnKey);
-    }
-  });
+  useInput(
+    (input, key) => {
+      if (key.return) {
+        setOrderBy(columnKey);
+      }
+    },
+    { isActive: isFocused }
+  );
 
   return (
     <Box
